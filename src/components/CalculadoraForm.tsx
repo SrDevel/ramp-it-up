@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 interface CalculadoraFormProps {
-  onCalcular: (masa: number, angulo: number, coeficienteFriccion: number, tipoCalculo: 'rampa' | 'suspendido' | 'estatico') => void
+  onCalcular: (masa: number, angulo: number, coeficienteFriccion: number, tipoCalculo: 'rampa' | 'suspendido' | 'estatico', problemaFisico: string) => void
 }
 
 const CalculadoraForm: React.FC<CalculadoraFormProps> = ({ onCalcular }) => {
@@ -9,14 +9,28 @@ const CalculadoraForm: React.FC<CalculadoraFormProps> = ({ onCalcular }) => {
   const [angulo, setAngulo] = useState('')
   const [coeficienteFriccion, setCoeficienteFriccion] = useState('')
   const [tipoCalculo, setTipoCalculo] = useState<'rampa' | 'suspendido' | 'estatico'>('rampa')
+  const [problemaFisico, setProblemaFisico] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onCalcular(parseFloat(masa), parseFloat(angulo), parseFloat(coeficienteFriccion), tipoCalculo)
+    onCalcular(parseFloat(masa), parseFloat(angulo), parseFloat(coeficienteFriccion), tipoCalculo, problemaFisico)
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="problemaFisico" className="block text-sm font-medium text-gray-700">
+          Descripción del problema físico
+        </label>
+        <textarea
+          id="problemaFisico"
+          value={problemaFisico}
+          onChange={(e) => setProblemaFisico(e.target.value)}
+          rows={3}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          placeholder="Describe el problema físico aquí..."
+        />
+      </div>
       <div>
         <label htmlFor="tipoCalculo" className="block text-sm font-medium text-gray-700">
           Tipo de cálculo
