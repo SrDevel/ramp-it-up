@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { ArrowDown, ArrowRight } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUp, ArrowLeft } from 'lucide-react'
 
 interface DiagramaFuerzasProps {
   angulo: number
   fuerzaNormal: number
   fuerzaFriccion: number
   fuerzaGravitacional: number
+  direccion: 'izquierda' | 'derecha' | 'equilibrio'
+  movimiento: 'sube' | 'baja' | 'estático'
 }
 
 const DiagramaFuerzas: React.FC<DiagramaFuerzasProps> = ({
@@ -13,22 +15,31 @@ const DiagramaFuerzas: React.FC<DiagramaFuerzasProps> = ({
   fuerzaNormal,
   fuerzaFriccion,
   fuerzaGravitacional,
+  direccion,
+  movimiento,
 }) => {
   const escala = 100 / Math.max(fuerzaNormal, fuerzaFriccion, fuerzaGravitacional)
-  const [posicion, setPosicion] = useState(0)
+  const [posicion, setPosicion] = useState(50)
 
   useEffect(() => {
-    const animacion = setInterval(() => {
-      setPosicion((prev) => {
-        const nuevaPosicion = prev + 1
-        return nuevaPosicion > 100 ? 0 : nuevaPosicion
-      })
-    }, 50)
+    if (movimiento !== 'estático') {
+      const animacion = setInterval(() => {
+        setPosicion((prev) => {
+          if (movimiento === 'baja') {
+            return (prev + 1) % 101
+          } else {
+            return prev > 0 ? prev - 1 : 100
+          }
+        })
+      }, 50)
 
-    return () => clearInterval(animacion)
-  }, [])
+      return () => clearInterval(animacion)
+    }
+  }, [movimiento])
 
-  const aceleracion = (fuerzaGravitacional - fuerzaFriccion) / (fuerzaNormal / 9.8)
+  const anguloRad = (angulo * Math.PI) / 180
+  const xPos = posicion * Math.cos(anguloRad)
+  const yPos = posicion * Math.sin(anguloRad)
 
   return (
     <div className="bg-white overflow-hidden shadow rounded-lg">
@@ -48,40 +59,52 @@ const DiagramaFuerzas: React.FC<DiagramaFuerzasProps> = ({
           <div
             className="absolute w-8 h-8 bg-blue-500 rounded-full transition-all duration-50 ease-linear"
             style={{
-              bottom: `${Math.sin(angulo * Math.PI / 180) * posicion}px`,
-              left: `${Math.cos(angulo * Math.PI / 180) * posicion}px`,
+              bottom: `${yPos}%`,
+              left: `${xPos}%`,
             }}
           ></div>
 
           {/* Fuerza Normal */}
-          <ArrowDown
+          <ArrowUp
             className="absolute text-green-500"
             size={fuerzaNormal * escala}
             style={{
-              bottom: `${Math.sin(angulo * Math.PI / 180) * posicion + 16}px`,
-              left: `${Math.cos(angulo * Math.PI / 180) * posicion}px`,
-              transform: `rotate(${90 - angulo}deg)`,
+              bottom: `${yPos + 4}%`,
+              left: `${xPos}%`,
+              transform: `rotate(${angulo}deg)`,
             }}
           />
 
           {/* Fuerza de Fricción */}
-          <ArrowRight
-            className="absolute text-red-500"
-            size={fuerzaFriccion * escala}
-            style={{
-              bottom: `${Math.sin(angulo * Math.PI / 180) * posicion}px`,
-              left: `${Math.cos(angulo * Math.PI / 180) * posicion + 16}px`,
-              transform: `rotate(${-angulo}deg)`,
-            }}
-          />
+          {direccion === 'derecha' ? (
+            <ArrowLeft
+              className="absolute text-red-500"
+              size={fuerzaFriccion * escala}
+              style={{
+                bottom: `${yPos}%`,
+                left: `${xPos + 4}%`,
+                transform: `rotate(${-angulo}deg)`,
+              }}
+            />
+          ) : (
+            <ArrowRight
+              className="absolute text-red-500"
+              size={fuerzaFriccion * escala}
+              style={{
+                bottom: `${yPos}%`,
+                left: `${xPos + 4}%`,
+                transform: `rotate(${-angulo}deg)`,
+              }}
+            />
+          )}
 
           {/* Fuerza Gravitacional */}
           <ArrowDown
             className="absolute text-purple-500"
             size={fuerzaGravitacional * escala}
             style={{
-              bottom: `${Math.sin(angulo * Math.PI / 180) * posicion + 16}px`,
-              left: `${Math.cos(angulo * Math.PI / 180) * posicion}px`,
+              bottom: `${yPos + 4}%`,
+              left: `${xPos}%`,
             }}
           />
 
@@ -91,7 +114,8 @@ const DiagramaFuerzas: React.FC<DiagramaFuerzasProps> = ({
             <p>FN: {fuerzaNormal.toFixed(2)} N</p>
             <p>Ff: {fuerzaFriccion.toFixed(2)} N</p>
             <p>Fg: {fuerzaGravitacional.toFixed(2)} N</p>
-            <p>a: {aceleracion.toFixed(2)} m/s²</p>
+            <p>Dirección: {direccion}</p>
+            <p>Movimiento: {movimiento}</p>
           </div>
         </div>
         <div className="mt-4 grid grid-cols-3 gap-2 text-sm">

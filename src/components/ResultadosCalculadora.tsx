@@ -6,6 +6,8 @@ interface ResultadosCalculadoraProps {
     fuerzaFriccion: number
     fuerzaGravitacional: number
     aceleracion: number
+    direccion: 'izquierda' | 'derecha' | 'equilibrio'
+    movimiento: 'sube' | 'baja' | 'estático'
   }
   datos: {
     masa: number
@@ -47,6 +49,16 @@ const ResultadosCalculadora: React.FC<ResultadosCalculadoraProps> = ({ resultado
             <p className="mt-2 text-sm text-gray-600">a = (Fg - Ff) / m</p>
             <p className="text-sm text-gray-600">= ({resultados.fuerzaGravitacional} - {resultados.fuerzaFriccion}) / {masa}</p>
           </div>
+          <div className="px-4 py-5 bg-gray-50 shadow rounded-lg overflow-hidden sm:p-6">
+            <dt className="text-sm font-medium text-gray-500 truncate">Dirección del Movimiento</dt>
+            <dd className="mt-1 text-3xl font-semibold text-gray-900">{resultados.direccion}</dd>
+            <p className="mt-2 text-sm text-gray-600">Basado en la aceleración resultante</p>
+          </div>
+          <div className="px-4 py-5 bg-gray-50 shadow rounded-lg overflow-hidden sm:p-6">
+            <dt className="text-sm font-medium text-gray-500 truncate">Tipo de Movimiento</dt>
+            <dd className="mt-1 text-3xl font-semibold text-gray-900">{resultados.movimiento}</dd>
+            <p className="mt-2 text-sm text-gray-600">Basado en la relación entre Fg y Ff</p>
+          </div>
         </dl>
         <div className="mt-6 bg-gray-50 shadow rounded-lg overflow-hidden sm:p-6">
           <h4 className="text-md font-medium text-gray-900 mb-2">Fórmulas utilizadas:</h4>
@@ -55,6 +67,8 @@ const ResultadosCalculadora: React.FC<ResultadosCalculadoraProps> = ({ resultado
             <li>Fuerza de Fricción (Ff) = μ * FN</li>
             <li>Componente Gravitacional (Fg) = m * g * sin(θ)</li>
             <li>Aceleración (a) = (Fg - Ff) / m</li>
+            <li>Dirección: basada en el signo de la aceleración</li>
+            <li>Movimiento: comparación entre Fg y Ff</li>
           </ul>
           <p className="mt-2 text-sm text-gray-600">Donde: m = masa, g = 9.8 m/s² (gravedad), θ = ángulo de inclinación, μ = coeficiente de fricción</p>
         </div>
