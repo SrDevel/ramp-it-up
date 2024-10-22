@@ -20,14 +20,14 @@ function App() {
     setSimulationType(type)
 
     try {
-      const prompt = `Explica los siguientes resultados de una simulación de ${type}:\n${JSON.stringify(calculationResults, null, 2)} (devuelve la explicación en español, con un máximo de 1500 caracteres y en formato markdown)`
+      const prompt = `Explica los siguientes resultados de una simulación de ${type}:\n${JSON.stringify(calculationResults, null, 2)} (con sus respectivas fórmulas y explica los resultados obtenidos en cada caso, con un máximo de 1500 caracteres y en formato markdown)`
       const explanation = await askGemini(prompt)
       if (!explanation) {
         throw new Error('No se pudo obtener una explicación de Gemini AI')
       }
       setAiExplanation(explanation)
     } catch (error) {
-      console.error('Error al obtener la explicación de Claude AI:', error)
+      console.error('Error al obtener la explicación de Gemini AI:', error)
       setAiExplanation('No se pudo obtener una explicación en este momento.')
     }
   }

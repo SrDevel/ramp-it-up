@@ -12,8 +12,7 @@ const Header: React.FC = () => {
         <nav>
           <ul className="flex space-x-4">
             <li><a href="/" className="hover:text-indigo-200">Inicio</a></li>
-            <li><a href="#" className="hover:text-indigo-200">Acerca de</a></li>
-            <li><a href="#" className="hover:text-indigo-200">Contacto</a></li>
+            <li><a href="#" className="hover:text-indigo-200">Acerca de Nosotros</a></li>
           </ul>
         </nav>
       </div>

@@ -30,7 +30,11 @@ const SimulationResults: React.FC<SimulationResultsProps> = ({type, results}) =>
                     </div>
                     <div>
                         <p className="font-bold">Dirección:</p>
-                        <p>{results.direction}</p>
+                        <p>{
+                            results.direction === "upward"? "Arriba" 
+                            : results.direction === "downward" ? "Abajo" 
+                            : "Estático"
+                        }</p>
                     </div>
                 </div>
             )}
@@ -56,7 +60,7 @@ const SimulationResults: React.FC<SimulationResultsProps> = ({type, results}) =>
                     <ul>
                         {results.forceAtTime?.map((force, index) => (
                             <li key={index}>
-                                <p className="font-bold mb-2">Fuerza en el tiempo {index + 1}: {index + 1}: {force.toFixed(2)} s</p>
+                                <p className="font-bold mb-2">Fuerza en el tiempo {index + 1}: {force.toFixed(2)} s</p>
                             </li>
                         ))}
                     </ul>

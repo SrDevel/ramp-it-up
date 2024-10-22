@@ -32,6 +32,10 @@ const calculateInclinedPlane = (data: SimulationData): SimulationResult => {
         throw new Error('El ángulo debe estar entre 0 y 90 grados');
     }
 
+    if (!mass || mass <= 0) {
+        throw new Error('La masa debe ser un valor positivo');
+    }
+
     if (frictionCoefficient < 0) {
         throw new Error('El coeficiente de fricción no puede ser negativo');
     } else if (frictionCoefficient > 1) {
