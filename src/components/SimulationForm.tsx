@@ -304,8 +304,7 @@ const SimulationForm: React.FC<SimulationFormProps> = ({ onSimulate }) => {
                         </div>
                     </div>
 
-                    {/* Controles de función y tiempo */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> {/* Grid para dividir los controles de función */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {renderFunctionControls()}
                         {renderInput('timeStart', 'Tiempo Inicial (s)', { required: true })}
                         {renderInput('timeEnd', 'Tiempo Final (s)', { required: true })}
@@ -313,8 +312,6 @@ const SimulationForm: React.FC<SimulationFormProps> = ({ onSimulate }) => {
                     </div>
                 </>
             )}
-
-            {simulationType === 'variableForces' && renderFunctionControls()}
 
             {simulationType === 'equilibrium' && (
                 <div className="space-y-4">
