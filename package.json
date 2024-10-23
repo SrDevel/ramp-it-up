@@ -12,7 +12,9 @@
   "dependencies": {
     "@eslint/js": "^9.13.0",
     "@google/generative-ai": "^0.21.0",
+    "@tailwindcss/typography": "^0.5.15",
     "axios": "^1.6.7",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "globals": "^15.11.0",
     "katex": "^0.16.11",
@@ -21,7 +23,11 @@
     "react-dom": "^18.2.0",
     "react-katex": "^3.0.1",
     "react-markdown": "^9.0.1",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
+    "remark-math": "^6.0.0",
+    "tailwind-merge": "^2.5.4",
     "typescript-eslint": "^8.11.0"
   },
   "devDependencies": {
