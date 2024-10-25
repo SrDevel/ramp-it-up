@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-200 py-10 mt-10"> {/* Aumentar el padding */}
+        <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-200 py-10"> {/* Aumentar el padding */}
             <div className="container mx-auto px-4">
                 <div
                     className="flex flex-col items-center justify-center space-y-8"> {/* Aumentar el espacio entre elementos */}

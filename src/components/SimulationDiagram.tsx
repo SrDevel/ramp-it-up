@@ -137,7 +137,7 @@ const EnhancedSimulationDiagram = ({type, results}: { type: string; results: any
 
     const drawAngleArc = (ctx: CanvasRenderingContext2D, x: number, y: number, radius: number) => {
         const startAngle = 0;
-        const endAngle = -45 * Math.PI / 180; // 45 grados en radianes
+        const endAngle = -45 * Math.PI / 198; // 45 grados en radianes
 
         ctx.beginPath();
         ctx.arc(x, y, radius, startAngle, endAngle, true);
@@ -150,7 +150,7 @@ const EnhancedSimulationDiagram = ({type, results}: { type: string; results: any
         ctx.fillStyle = '#8B5CF6';
         ctx.font = '14px Arial';
         ctx.fillText(
-            '45°',
+            'Inclinación',
             x + labelRadius * Math.cos(labelAngle),
             y - labelRadius * Math.sin(labelAngle)
         );

@@ -33,7 +33,7 @@ const Header = () => {
                   </li>
                   <li>
                     <a
-                        href="#"
+                        href="/about"
                         className="text-indigo-100 hover:text-white transition-colors duration-300 relative py-2 px-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-white after:transition-all after:duration-300"
                     >
                       Acerca de Nosotros
@@ -45,7 +45,6 @@ const Header = () => {
           </div>
         </div>
 
-        {/* Línea decorativa inferior */}
         <div className="h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </header>
   );
